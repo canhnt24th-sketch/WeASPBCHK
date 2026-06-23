@@ -19,4 +19,11 @@
     <ProjectReference Include="..\Core.Database\Core.Database.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Areas\Areas\Controllers\" />
+    <Folder Include="Areas\Areas\Data\" />
+    <Folder Include="Areas\Areas\Models\" />
+    <Folder Include="Areas\Areas\Views\" />
+  </ItemGroup>
+
 </Project>
