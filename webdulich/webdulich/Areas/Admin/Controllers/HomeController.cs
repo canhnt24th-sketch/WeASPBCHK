@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace webdulich.Areas.Areas.Controllers
+namespace webdulich.Areas.Admin.Controllers
 {
     [Area("Admin")]
     public class HomeController : Controller
