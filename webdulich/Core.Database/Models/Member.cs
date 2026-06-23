@@ -1,8 +1,6 @@
-﻿
-using Core.Database.Interfaces;
+﻿using Core.Database.Interfaces;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.RegularExpressions;
 
 namespace Core.Database.Models
 {
@@ -29,14 +27,6 @@ namespace Core.Database.Models
         public string? Email { get; set; }
 
         public DateTime? LastLogin { get; set; }
-
-        public Guid? CreatedBy { get; set; }
-
-        public DateTime? CreatedOn { get; set; }
-
-        public Guid? ModifiedBy { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
 
         [ForeignKey("GroupId")]
         public Guid? GroupId { get; set; }

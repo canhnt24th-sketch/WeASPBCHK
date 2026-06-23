@@ -13,10 +13,8 @@ namespace Core.Database.Models
         [StringLength(150)]
         public string? Name { get; set; }
 
-        public ICollection<Member> Members { get; set; }
-            = new HashSet<Member>();
+        public ICollection<Member> Members { get; set; } = new HashSet<Member>();
 
-        public ICollection<Authorized> Authorized { get; set; }
-            = new HashSet<Authorized>();
+        public ICollection<Authorized> Authorizeds { get; set; } = new HashSet<Authorized>();
     }
 }

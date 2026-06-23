@@ -21,5 +21,8 @@ namespace Core.Database.Models
         public Guid? CategoryId { get; set; }
 
         public Category? Category { get; set; }
+
+        public ICollection<Authorized> Authorizeds { get; set; }
+            = new HashSet<Authorized>();
     }
 }
