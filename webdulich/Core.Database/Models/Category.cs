@@ -1,12 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Core.Database.Interfaces;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Database.Models
 {
-    internal class Category
+    [Table("Category")]
+    public class Category : IAuditable
     {
+        [Key]
+        public Guid Id { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string? Name { get; set; }
+
+        [ForeignKey("ParentId")]
+        public Guid? ParentId { get; set; }
+
+        public Category? Parent { get; set; }
+
+        public Guid? CreatedBy { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
+
+        public Guid? ModifiedBy { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
     }
+
 }
