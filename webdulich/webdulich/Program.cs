@@ -7,7 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<FoodContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("FoodDb")));
-
+builder.Services.AddSession(cfg =>
+{
+    cfg.Cookie.IsEssential = true;
+    cfg.IdleTimeout = new TimeSpan(0, 30, 0);
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -22,7 +26,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseSession();
 app.UseAuthorization();
 
 app.MapControllerRoute(

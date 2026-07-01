@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using System.Security.Cryptography;
+using System.Text;
+using Web.Areas.Admin.Extensions;
 using Web.Areas.Admin.Models;
 using Web.Models.EF;
 using webdulich.Areas.Admin.Models;
@@ -141,5 +144,42 @@ namespace webdulich.Areas.Admin.Controllers
             }
             return Ok(false);
         }
+        [HttpGet]
+        public IActionResult Login()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Login(LoginViewModel item)
+        {
+            string md5Password = MD5Hash(item.Password);
+            var member = _dbContext.Members.Where(i => i.LoginName == item.LoginName && i.Password == item.Password).FirstOrDefault();
+            if (member != null)
+            {
+                HttpContext.Session.SetObject("member", member);
+                return RedirectToAction("Index", "Home");
+            }
+            return Ok();
+        }
+        public string MD5Hash(string text)
+        {
+            MD5 md5H = MD5.Create();
+
+            //convert the input string to a byte array and compute its hash
+            byte[] data = md5H.ComputeHash(Encoding.UTF8.GetBytes(text));
+
+            // create a new stringbuilder to collect the bytes and create a string
+            StringBuilder sB = new StringBuilder();
+
+            //loop through each byte of hashed data and format each one as a hexadecimal string
+            for (int i = 0; i < data.Length; i++)
+            {
+                sB.Append(data[i].ToString("x2"));
+            }
+
+            //return hexadecimal string
+            return sB.ToString();
+        }
     }
+
 }
