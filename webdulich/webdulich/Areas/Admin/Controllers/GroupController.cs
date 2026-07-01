@@ -56,5 +56,18 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(jsonData);
         }
+        [HttpGet]
+        public async Task<IActionResult> getItem(Guid id)
+        {
+            if (_dbContext.Groups == null)
+                return NotFound();
+
+            var item = await _dbContext.Groups.FindAsync(id);
+
+            if (item == null)
+                return NotFound();
+
+            return Ok(item);
+        }
     }
 }
