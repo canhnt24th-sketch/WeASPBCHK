@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Nhóm quyền";
+    ViewData["Title"] = "Thành viên";
     Layout = "~/Areas/Admin/Views/Shared/_Admin.cshtml";
 }
 <div class="card">
@@ -21,9 +21,9 @@
                 <tr>
 
                     <th style="width: 10px">#</th>
-
-                    <th>Tên nhóm</th>
-
+                    <th>Tên thành viên</th>
+                    <th>Nhóm quyèn</th>
+                    <th>Truy cập gần nhất</th>
                     <th style="width: 40px"></th>
 
                 </tr>
@@ -71,11 +71,6 @@
         div.dt-buttons {
             float: right;
         }
-
-        img.user-picture {
-            width: 32px;
-            height: 32px;
-        }
     </style>
 }
 @section Js {
@@ -83,7 +78,7 @@
     <script src="/plugins/datatables/jquery.datatables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
-    <script src="/plugins/toastr/toastr.min.js"></script> 
+    <script src="/plugins/toastr/toastr.min.js"></script>
     <script src="/plugins/sweetalet2/sweetalert2.all.min.js"></script>
     <script>
 
@@ -97,7 +92,7 @@
 
         "ajax": {
 
-        "url": "/Admin/Group/GetList",
+        "url": "/Admin/Member/GetList",
 
         "type": "POST",
 
@@ -117,7 +112,21 @@
 
         {
 
-        "data": "name"
+        "render": function (data, type, row, meta) {
+
+        return "<img class='user-picture' src='" + row.picture + "' /> " + row.name;
+
+        }
+
+        },
+        {
+
+        "data": "groupName"
+
+        },
+        {
+
+        "data": "lastLogin"
 
         },
 
@@ -145,7 +154,7 @@
 
         {
 
-        text: '<i class="fa fa-plus mr-2"></i>Thêm nhóm',
+        text: '<i class="fa fa-plus mr-2"></i>Thêm thành viên',
 
         className: 'btn btn-info pb-1',
 
@@ -163,8 +172,8 @@
         $(document).on("click", "a.btnEdit", function(){
 
         let id = $(this).data("id");
-  
 
+  
         $.getJSON("/Admin/Group/GetItem",
 
         {
@@ -177,7 +186,7 @@
         $("#Id").val(item.id);
         $("#Name").val(item.name);
         $("#modal-default").modal('Show')
-       });
+        });
 
         })
         $(".btnSave").click(function () {
