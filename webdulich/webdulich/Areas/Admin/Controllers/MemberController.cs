@@ -159,7 +159,13 @@ namespace webdulich.Areas.Admin.Controllers
                 HttpContext.Session.SetObject("member", member);
                 return RedirectToAction("Index", "Home");
             }
-            return Ok();
+           return RedirectToAction("Login", "Member"); ;
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.SetObject("member", null);
+
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
         public string MD5Hash(string text)
         {

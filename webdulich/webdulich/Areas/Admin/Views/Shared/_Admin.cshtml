@@ -176,6 +176,17 @@
       <!-- Sidebar user panel (optional) -->
                 @{
                     var member = Context.Session.GetObject<Member>("member");
+                    if (member != null)
+                    {
+                        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                            <div class="image">
+                                <img src="@member.Picture" class="img-circle elevation-2" alt="@member.Name">
+                            </div>
+                            <div class="info">
+                                <a href="#" class="d-block">@member.Name</a>
+                            </div>
+                        </div>
+                    }
                 }
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
