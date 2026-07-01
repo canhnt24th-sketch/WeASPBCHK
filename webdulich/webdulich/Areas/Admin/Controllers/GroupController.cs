@@ -91,6 +91,15 @@ namespace webdulich.Areas.Admin.Controllers
             return Ok(item);
         }
         [HttpGet]
+        public async Task<IActionResult> getList()
+        {
+            var items = (from i in _dbContext.Groups select i);
+
+            var data = await items.Select(i => new { i.Id, i.Name }).ToListAsync();
+
+            return Ok(data);
+        }
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
             var memberInGroup = await _dbContext.Members.Where(m => m.GroupId == id).FirstOrDefaultAsync();
