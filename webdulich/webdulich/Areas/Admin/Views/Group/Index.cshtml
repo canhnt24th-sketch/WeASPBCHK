@@ -79,6 +79,7 @@
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
     <script src="/plugins/toastr/toastr.min.js"></script> 
+    <script src="/plugins/sweetalet2/sweetalert2.all.min.js"></script>
     <script>
 
         $(function () {
@@ -178,7 +179,7 @@
         data: $("#Item").serialize(),
         url: "/Admin/Group/Save",
         type: "POST",
-        contentType: 'application/x-www-urlencoded; charset=UTF-8',
+        contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
         success: function (item) {
         $("#modal-default").modal('hide');
         toastr.success("Thông báo: Lưu thành công !!");
@@ -188,6 +189,32 @@
         });
 
         });
-    });
+        $(document).on('click', "a.btnDelete", function () {
+        let id = $(this).data("id");
+        Swal.fire({
+        title: 'Bạn chắc không?',
+        text: 'Xóa không thể phục hồi được !',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Xác nhận',
+        cancelButtonText: 'Hủy'
+        }).then(function (result) {
+        if (result.isConfirmed) {
+        $.get("/Admin/Group/Delete",
+        {
+        id: id
+        }, function (data) {
+        if (data == true) {
+        toastr.success('Thông báo: Xóa nhóm quyền thành công.');
+        items.ajax.reload();
+        } else {
+        toastr.error('Lỗi: Kiểm tra lại ràng buộc toàn vẹn của nhóm quyền.')
+        }
+        })
+        }
+        })
+        })
+        });
     </script>
 }

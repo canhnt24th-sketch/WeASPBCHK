@@ -90,5 +90,18 @@ namespace webdulich.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok(item);
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            var memberInGroup = await _dbContext.Members.Where(m => m.GroupId == id).FirstOrDefaultAsync();
+            if (memberInGroup == null)
+            {
+                var item = await _dbContext.Groups.FindAsync(id);
+                _dbContext.Entry(item).State = EntityState.Deleted;
+                await _dbContext.SaveChangesAsync();
+                return Ok(true);
+            }
+            return Ok(false);
+        }
     }
 }
