@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Web.Areas.Admin.Filters;
 using Web.Models.EF;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,10 @@ builder.Services.AddSession(cfg =>
 {
     cfg.Cookie.IsEssential = true;
     cfg.IdleTimeout = new TimeSpan(0, 30, 0);
+});
+builder.Services.AddMvc(cfg =>
+{
+    cfg.Filters.Add(new CustomActionFilter());
 });
 var app = builder.Build();
 
