@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using Web.Areas.Admin.Models;
 using Web.Models.EF;
 using webdulich.Areas.Admin.Models;
 
@@ -67,6 +68,26 @@ namespace webdulich.Areas.Admin.Controllers
             if (item == null)
                 return NotFound();
 
+            return Ok(item);
+        }
+        [HttpPost]
+    
+        public async Task<IActionResult> Save(GroupViewModel model)
+        {
+            Core.Database.Models.Group item;
+
+            if (model.Id == null)
+            {
+                item = new Core.Database.Models.Group();
+                item.Id= Guid.NewGuid();
+                await _dbContext.Groups.AddAsync(item);
+            }
+            else
+            {
+                item = await _dbContext.Groups.FindAsync(model.Id);
+            }
+            item.Name = model.Name;
+            await _dbContext.SaveChangesAsync();
             return Ok(item);
         }
     }

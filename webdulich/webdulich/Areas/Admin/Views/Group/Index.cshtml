@@ -37,8 +37,36 @@
     </div>
 
 </div>
+<div class="modal fade" id="modal-default">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@ViewBag.Title</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="Item">
+                    <input type="hidden" id="Id" name="Id" />
+                    <div class="form-group">
+                        <label for="Name">Nhóm quyền</label>
+                        <input type="text" class="form-control" id="Name" name="Name" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                <button type="button" class="btn btn-primary btnSave">Lưu</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 @section Css {
     <link href="/plugins/datatables-bs4/css/datatables.bootstrap4.min.css" rel="stylesheet" />
+    <link href="/plugins/toastr/toastr.min.css" rel="stylesheet" />
     <style>
         div.dt-buttons {
             float: right;
@@ -50,6 +78,7 @@
     <script src="/plugins/datatables/jquery.datatables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
+    <script src="/plugins/toastr/toastr.min.js"></script> 
     <script>
 
         $(function () {
@@ -115,9 +144,8 @@
         className: 'btn btn-info pb-1',
 
         action: function (e, dt, node, config) {
-
-        //code
-
+        $("#modal-default form#Item")[0].reset();
+        $("#modal-default").modal('show');
         }
 
         }
@@ -139,10 +167,27 @@
         },
 
         function (item) {
-
+        $("#Id").val(item.id);
+        $("#Name").val(item.name);
+        $("#modal-default").modal('Show')
        });
 
         })
+        $(".btnSave").click(function () {
+        $.ajax({
+        data: $("#Item").serialize(),
+        url: "/Admin/Group/Save",
+        type: "POST",
+        contentType: 'application/x-www-urlencoded; charset=UTF-8',
+        success: function (item) {
+        $("#modal-default").modal('hide');
+        toastr.success("Thông báo: Lưu thành công !!");
+        items.ajax.reload();
+        }
+
+        });
+
+        });
     });
     </script>
 }
