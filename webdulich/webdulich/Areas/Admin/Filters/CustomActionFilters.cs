@@ -14,15 +14,17 @@ namespace Web.Areas.Admin.Filters
 
         public void OnActionExecuting(ActionExecutingContext context)
         {
-            if (context.RouteData.Values["action"].ToString() != "Login")
-            {
-                var member = context.HttpContext.Session.GetObject<Member>("member");
+            var area = context.RouteData.Values["area"];
 
-                if (member == null)
-                {
-                    context.Result = new RedirectResult("/Admin/Member/Login");
-                }
-            }
+if (context.RouteData.Values["action"].ToString() != "Login" && area?.ToString() == "Admin")
+{
+    var member = context.HttpContext.Session.GetObject<Member>("member");
+
+    if (member == null)
+    {
+        context.Result = new RedirectResult("/Admin/Member/Login");
+    }
+}
         }
     }
 }
