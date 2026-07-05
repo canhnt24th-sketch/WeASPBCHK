@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Security.Cryptography;
@@ -21,6 +22,7 @@ namespace webdulich.Areas.Admin.Controllers
             _environment = environment;
 
         }
+        [Authorized(Code = "view-members")]
         [HttpPost]
         public async Task<IActionResult> getList(jDatatable model)
         {
@@ -65,6 +67,7 @@ namespace webdulich.Areas.Admin.Controllers
         {
             return View();
         }
+        [Authorized(Code = "edit-members")]
         [HttpGet]
         public async Task<IActionResult> getItem(Guid id)
         {
@@ -78,6 +81,7 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(item);
         }
+        [Authorized(Code = "save-members")]
         [HttpPost]
         public async Task<IActionResult> Save(MemberViewModel model, IFormFile Picture)
         {
@@ -131,6 +135,7 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(item);
         }
+        [Authorized(Code = "delete-members")]
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -157,6 +162,8 @@ namespace webdulich.Areas.Admin.Controllers
             if (member != null)
             {
                 HttpContext.Session.SetObject("member", member);
+                var codes = _dbContext.Authorzieds.Where(i => i.GroupId == member.GroupId).Select(i => i.Role.Code).ToList();
+                HttpContext.Session.SetObject("codes", codes);
                 return RedirectToAction("Index", "Home");
             }
            return RedirectToAction("Login", "Member"); ;

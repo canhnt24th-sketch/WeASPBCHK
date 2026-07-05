@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
+using Web.Areas.Admin.Attributes;
 using Web.Areas.Admin.Models;
 using Web.Models.EF;
 using webdulich.Areas.Admin.Models;
@@ -22,6 +23,7 @@ namespace webdulich.Areas.Admin.Controllers
         {
             return View();
         }
+        [Authorized(Code = "view-groups")]
         [HttpPost]
         public async Task<IActionResult> getList(jDatatable model)
         {
@@ -57,6 +59,7 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(jsonData);
         }
+        [Authorized(Code = "edit-member")]
         [HttpGet]
         public async Task<IActionResult> getItem(Guid id)
         {
@@ -70,6 +73,7 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(item);
         }
+        [Authorized(Code = "save-group")]
         [HttpPost]
     
         public async Task<IActionResult> Save(GroupViewModel model)
@@ -90,15 +94,7 @@ namespace webdulich.Areas.Admin.Controllers
             await _dbContext.SaveChangesAsync();
             return Ok(item);
         }
-        [HttpGet]
-        public async Task<IActionResult> getList()
-        {
-            var items = (from i in _dbContext.Groups select i);
-
-            var data = await items.Select(i => new { i.Id, i.Name }).ToListAsync();
-
-            return Ok(data);
-        }
+        [Authorized(Code = "delete-group")]
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
