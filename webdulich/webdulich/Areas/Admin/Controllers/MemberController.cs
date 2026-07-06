@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Dynamic.Core;
 using System.Security.Cryptography;
 using System.Text;
+using Web.Areas.Admin.Attributes;
 using Web.Areas.Admin.Extensions;
 using Web.Areas.Admin.Models;
 using Web.Models.EF;
@@ -15,12 +15,13 @@ namespace webdulich.Areas.Admin.Controllers
     public class MemberController : Controller
     {
         private readonly FoodContext _dbContext;
-        private Microsoft.AspNetCore.Hosting.IHostingEnvironment _environment;
-        public MemberController(FoodContext dbContext, Microsoft.AspNetCore.Hosting.IHostingEnvironment environment)
+
+        private readonly IWebHostEnvironment _environment;
+
+        public MemberController(FoodContext dbContext, IWebHostEnvironment environment)
         {
             _dbContext = dbContext;
             _environment = environment;
-
         }
         [Authorized(Code = "view-members")]
         [HttpPost]
@@ -162,7 +163,7 @@ namespace webdulich.Areas.Admin.Controllers
             if (member != null)
             {
                 HttpContext.Session.SetObject("member", member);
-                var codes = _dbContext.Authorzieds.Where(i => i.GroupId == member.GroupId).Select(i => i.Role.Code).ToList();
+                var codes = _dbContext.Authorizeds.Where(i => i.GroupId == member.GroupId).Select(i => i.Role.Code).ToList();
                 HttpContext.Session.SetObject("codes", codes);
                 return RedirectToAction("Index", "Home");
             }

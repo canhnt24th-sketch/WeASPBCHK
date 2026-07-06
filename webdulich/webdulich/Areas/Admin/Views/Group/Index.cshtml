@@ -64,6 +64,25 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
+<div class="modal fade" id="modal-authorized"> //thêm cho authorized    
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Phân quyền</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <select id="CategoryId" name="CategoryId" class="form-control">
+                    <option value="">--- Chọn nhóm quyền ---</option>
+                </select>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 @section Css {
     <link href="/plugins/datatables-bs4/css/datatables.bootstrap4.min.css" rel="stylesheet" />
     <link href="/plugins/toastr/toastr.min.css" rel="stylesheet" />
@@ -136,6 +155,8 @@
         '<div class="dropdown-menu" role="menu" style="">' +
         '<a class="dropdown-item text-primary btnEdit" href="#" data-id="' + row.id + '"><i class="fas fa-pencil-alt mr-3"></i>Cập nhật</a>' +
         '<a class="dropdown-item text-danger btnDelete" href="#" data-id="' + row.id + '"><i class="fas fa-trash mr-3"></i>Xóa</a>' +
+        '<div class="dropdown-divider"></div>' +
+        '<a class="dropdown-item text-warning btnAuthorized" href="#" data-id="' + row.id + '"><i class="fa fa-unlock-alt mr-3"></i>Phân quyền</a>' +
         '<div>'+
         '</div>';
         return tool;
@@ -228,6 +249,14 @@
         }
         })
         })
+        function LoadRole() {
+
+        }
+
+        $(document).on("click", "a.btnAuthorized", function () {
+        let id = $(this).data("id");
+        $("#modal-authorized").modal('show');
+        });
         });
     </script>
 }
