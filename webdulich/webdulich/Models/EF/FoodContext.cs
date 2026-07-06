@@ -72,6 +72,20 @@ namespace Web.Models.EF
         Name = "Cập nhật",
         Code = "edit-group",
         CategoryId = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54")
+    },
+    new Role()
+    {
+        Id = Guid.Parse(" "),
+        Name = "Lưu",
+        Code = "save-group",
+        CategoryId = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54")
+    },
+    new Role()
+    {
+        Id = Guid.Parse(" "),
+        Name = "Xóa",
+        Code = "delete-group",
+        CategoryId = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54")
     }
 );
             modelBuilder.Entity<Authorized>().HasData(

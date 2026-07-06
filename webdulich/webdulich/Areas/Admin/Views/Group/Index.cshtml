@@ -74,9 +74,11 @@
                 </button>
             </div>
             <div class="modal-body">
+                <input type="hidden" id="GroupId" name="GroupId" />
                 <select id="CategoryId" name="CategoryId" class="form-control">
                     <option value="">--- Chọn nhóm quyền ---</option>
                 </select>
+                <div id="RoleList"></div>
             </div>
         </div>
         <!-- /.modal-content -->
@@ -249,14 +251,56 @@
         }
         })
         })
-        function LoadRole() {
 
+        function LoadCategory() {
+        if ($('#CategoryId > option').length <= 1) {
+        $.getJSON("/Admin/Category/GetChild", {
+        parentId: "647DCED7-E87D-4EC8-9702-2C5281E77911"
+        }, function (categories) {
+        categories.forEach((item) => {
+        var o = new Option(item.name, item.id);
+        $("#CategoryId").append(o);
+        })
+        })
+        }
         }
 
         $(document).on("click", "a.btnAuthorized", function () {
         let id = $(this).data("id");
+        $("#GroupId").val(id);
+        LoadCategory();
         $("#modal-authorized").modal('show');
         });
+
+        $("#CategoryId").change(function () {
+        let CategoryId = $(this).val();
+        let GroupId = $("#GroupId").val();
+
+        $.getJSON("/Admin/Role/GetAllByCategory", {
+        CategoryId: CategoryId
+        }, function (roles) {
+        $("#RoleList").html("");
+        roles.forEach((item) => {
+        $('<div class="custom-control custom-switch">' +
+        '<input type="checkbox" class="custom-control-input Role" ' + (item.groupId == GroupId ? "checked" : "") + ' id="' + item.id + '" data-id="' + item.id + '">' +
+        '<label class="custom-control-label" for="' + item.id + '">' + item.name + '</label>' +
+        '</div>').appendTo($("#RoleList"));
+        });
+        })
+        }); 
+        $(document).on("change", "input.Role", function () {
+        let RoleId = $(this).data("id");
+        let GroupId = $("#GroupId").val();
+
+        $.get("/Admin/Authorized/Save", {
+        GroupId: GroupId,
+        RoleId: RoleId
+        }, function (data) {
+        toastr.success('Thông báo: Cập nhật quyền thành công.');
+        }).fail(function () {
+        toastr.error('Lỗi: Không có quyền truy cập chức năng này.');
+        })
+        })
         });
     </script>
 }

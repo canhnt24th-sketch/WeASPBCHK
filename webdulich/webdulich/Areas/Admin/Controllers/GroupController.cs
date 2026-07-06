@@ -59,7 +59,16 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(jsonData);
         }
-        [Authorized(Code = "edit-member")]
+        [HttpGet]
+        public async Task<IActionResult> getList()
+        {
+            var items = (from i in _dbContext.Groups select i);
+
+            var data = await items.Select(i => new { i.Id, i.Name }).ToListAsync();
+
+            return Ok(data);
+        }
+        [Authorized(Code = "edit-group")]
         [HttpGet]
         public async Task<IActionResult> getItem(Guid id)
         {
