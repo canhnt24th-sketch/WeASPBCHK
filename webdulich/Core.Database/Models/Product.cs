@@ -1,11 +1,13 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Core.Database.Interfaces;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Database.Models
 {
     [Table("Product")]
-    public class Product
+    public class Product : IAuditable 
     {
+
         [Key]
         public Guid Id { get; set; }
 

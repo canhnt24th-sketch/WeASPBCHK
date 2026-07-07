@@ -15,7 +15,7 @@ namespace webdulich.Areas.Admin.Controllers
     public class MemberController : Controller
     {
         private readonly FoodContext _dbContext;
-
+        
         private readonly IWebHostEnvironment _environment;
 
         public MemberController(FoodContext dbContext, IWebHostEnvironment environment)
@@ -136,7 +136,7 @@ namespace webdulich.Areas.Admin.Controllers
 
             return Ok(item);
         }
-        [Authorized(Code = "delete-members")]
+        [Authorized(Code = "delete-member")]
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {

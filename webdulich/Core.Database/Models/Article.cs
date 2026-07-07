@@ -19,10 +19,7 @@ namespace Core.Database.Models
 
         [MaxLength(50)]
         public string? Picture { get; set; }
-
-        [MaxLength(500)]
-        public string? Intro { get; set; }
-
+        [MaxLength(50)]
         public string? Content { get; set; }
 
         public Guid? CreatedBy { get; set; }
