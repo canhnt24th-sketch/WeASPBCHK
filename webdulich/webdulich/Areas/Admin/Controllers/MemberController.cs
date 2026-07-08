@@ -159,7 +159,7 @@ namespace webdulich.Areas.Admin.Controllers
         public IActionResult Login(LoginViewModel item)
         {
             string md5Password = MD5Hash(item.Password);
-            var member = _dbContext.Members.Where(i => i.LoginName == item.LoginName && i.Password == item.Password).FirstOrDefault();
+            var member = _dbContext.Members.Where(i => i.LoginName == item.LoginName && i.Password == md5Password).FirstOrDefault();
             if (member != null)
             {
                 HttpContext.Session.SetObject("member", member);

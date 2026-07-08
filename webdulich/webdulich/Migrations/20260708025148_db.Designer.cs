@@ -12,8 +12,8 @@ using Web.Models.EF;
 namespace webdulich.Migrations
 {
     [DbContext(typeof(FoodContext))]
-    [Migration("20260623034643_CreateDB")]
-    partial class CreateDB
+    [Migration("20260708025148_db")]
+    partial class db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,8 @@ namespace webdulich.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uniqueidentifier");
@@ -42,10 +43,6 @@ namespace webdulich.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Intro")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
 
                     b.Property<string>("Keyword")
                         .HasColumnType("nvarchar(max)");
@@ -89,6 +86,14 @@ namespace webdulich.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("Authorized");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f0d65bd4-44be-414e-9418-076835a4e7c9"),
+                            GroupId = new Guid("164eadac-199a-4db7-bbc3-81b6254767b9"),
+                            RoleId = new Guid("76d93c1d-3457-4624-8d6a-8a8d3b780458")
+                        });
                 });
 
             modelBuilder.Entity("Core.Database.Models.Category", b =>
@@ -122,6 +127,96 @@ namespace webdulich.Migrations
                     b.HasIndex("ParentId");
 
                     b.ToTable("Category");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f053ba68-398a-4019-87a1-5bc9466e9fe4"),
+                            CreatedBy = new Guid("11336570-9607-4634-8244-207e19971e98"),
+                            CreatedOn = new DateTime(2026, 7, 8, 9, 51, 48, 251, DateTimeKind.Local).AddTicks(888),
+                            Name = "Root"
+                        },
+                        new
+                        {
+                            Id = new Guid("28f67ee3-fd18-4c07-92a8-3c88cd8a59a9"),
+                            CreatedBy = new Guid("11336570-9607-4634-8244-207e19971e98"),
+                            CreatedOn = new DateTime(2026, 7, 8, 9, 51, 48, 251, DateTimeKind.Local).AddTicks(891),
+                            Name = "Authorized"
+                        },
+                        new
+                        {
+                            Id = new Guid("87c81df9-92af-4de6-9ad4-ba239663b48e"),
+                            CreatedBy = new Guid("11336570-9607-4634-8244-207e19971e98"),
+                            CreatedOn = new DateTime(2026, 7, 8, 9, 51, 48, 251, DateTimeKind.Local).AddTicks(895),
+                            Name = "Article"
+                        },
+                        new
+                        {
+                            Id = new Guid("43443b53-f81d-4af8-aaa7-71e8f426a67b"),
+                            CreatedBy = new Guid("11336570-9607-4634-8244-207e19971e98"),
+                            CreatedOn = new DateTime(2026, 7, 8, 9, 51, 48, 251, DateTimeKind.Local).AddTicks(897),
+                            Name = "Product"
+                        },
+                        new
+                        {
+                            Id = new Guid("3bcd9c68-1b73-44c9-aba7-d167b98cfe54"),
+                            CreatedBy = new Guid("11336570-9607-4634-8244-207e19971e98"),
+                            CreatedOn = new DateTime(2026, 7, 8, 9, 51, 48, 251, DateTimeKind.Local).AddTicks(899),
+                            Name = "Group"
+                        });
+                });
+
+            modelBuilder.Entity("Core.Database.Models.Customer", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LoginName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customer");
+                });
+
+            modelBuilder.Entity("Core.Database.Models.Details", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("OrderId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<double?>("Price")
+                        .HasColumnType("float");
+
+                    b.Property<Guid?>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("Details");
                 });
 
             modelBuilder.Entity("Core.Database.Models.Group", b =>
@@ -138,6 +233,13 @@ namespace webdulich.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Group");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("164eadac-199a-4db7-bbc3-81b6254767b9"),
+                            Name = "Quản trị viên"
+                        });
                 });
 
             modelBuilder.Entity("Core.Database.Models.Member", b =>
@@ -190,6 +292,41 @@ namespace webdulich.Migrations
                     b.HasIndex("GroupId");
 
                     b.ToTable("Member");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("11336570-9607-4634-8244-207e19971e98"),
+                            CreatedOn = new DateTime(2026, 7, 8, 9, 51, 48, 251, DateTimeKind.Local).AddTicks(839),
+                            Email = "canhnt.24th@sv.dla.edu.vn",
+                            GroupId = new Guid("164eadac-199a-4db7-bbc3-81b6254767b9"),
+                            LoginName = "ngo.canh",
+                            Name = "Ngô Tuấn Cảnh",
+                            Password = "c4ca4238a0b923820dcc509a6f75849b",
+                            Picture = "/img/users/ngocanh.jpg"
+                        });
+                });
+
+            modelBuilder.Entity("Core.Database.Models.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("UpdateOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Order");
                 });
 
             modelBuilder.Entity("Core.Database.Models.Product", b =>
@@ -204,9 +341,21 @@ namespace webdulich.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("CreatedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Intro")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<Guid?>("ModifiedBy")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Picture")
                         .HasMaxLength(50)
@@ -251,6 +400,36 @@ namespace webdulich.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Role");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("76d93c1d-3457-4624-8d6a-8a8d3b780458"),
+                            CategoryId = new Guid("3bcd9c68-1b73-44c9-aba7-d167b98cfe54"),
+                            Code = "view-groups",
+                            Name = "Xem danh sách"
+                        },
+                        new
+                        {
+                            Id = new Guid("1c4ba275-09c1-412c-8e02-9af487331f18"),
+                            CategoryId = new Guid("3bcd9c68-1b73-44c9-aba7-d167b98cfe54"),
+                            Code = "edit-group",
+                            Name = "Cập nhật"
+                        },
+                        new
+                        {
+                            Id = new Guid("4b7262bc-92b2-4961-b800-be2d7e38766d"),
+                            CategoryId = new Guid("3bcd9c68-1b73-44c9-aba7-d167b98cfe54"),
+                            Code = "save-group",
+                            Name = "Lưu"
+                        },
+                        new
+                        {
+                            Id = new Guid("efd340c4-a8c6-494e-b361-b1f4084ed135"),
+                            CategoryId = new Guid("3bcd9c68-1b73-44c9-aba7-d167b98cfe54"),
+                            Code = "delete-group",
+                            Name = "Xóa"
+                        });
                 });
 
             modelBuilder.Entity("Core.Database.Models.Authorized", b =>
@@ -277,6 +456,21 @@ namespace webdulich.Migrations
                     b.Navigation("Parent");
                 });
 
+            modelBuilder.Entity("Core.Database.Models.Details", b =>
+                {
+                    b.HasOne("Core.Database.Models.Order", "Order")
+                        .WithMany("Details")
+                        .HasForeignKey("OrderId");
+
+                    b.HasOne("Core.Database.Models.Product", "Product")
+                        .WithMany("Details")
+                        .HasForeignKey("ProductId");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Product");
+                });
+
             modelBuilder.Entity("Core.Database.Models.Member", b =>
                 {
                     b.HasOne("Core.Database.Models.Group", "Group")
@@ -284,6 +478,15 @@ namespace webdulich.Migrations
                         .HasForeignKey("GroupId");
 
                     b.Navigation("Group");
+                });
+
+            modelBuilder.Entity("Core.Database.Models.Order", b =>
+                {
+                    b.HasOne("Core.Database.Models.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Core.Database.Models.Product", b =>
@@ -316,6 +519,16 @@ namespace webdulich.Migrations
                     b.Navigation("Authorizeds");
 
                     b.Navigation("Members");
+                });
+
+            modelBuilder.Entity("Core.Database.Models.Order", b =>
+                {
+                    b.Navigation("Details");
+                });
+
+            modelBuilder.Entity("Core.Database.Models.Product", b =>
+                {
+                    b.Navigation("Details");
                 });
 
             modelBuilder.Entity("Core.Database.Models.Role", b =>

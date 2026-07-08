@@ -37,7 +37,7 @@ namespace Web.Models.EF
                 },
                 new Category()
                 {
-                    Id = Guid.Parse("F053BA68-398A-4019-87A1-5BC9466E9FE4"), //dán id mới ở sql
+                    Id = Guid.Parse("28f67ee3-fd18-4c07-92a8-3c88cd8a59a9"), //dán id mới ở sql
                     Name = "Authorized", //bảng authorized
                     CreatedBy = Guid.Parse("11336570-9607-4634-8244-207E19971E98"),
                     CreatedOn = DateTime.Now //bảng tg
@@ -45,15 +45,22 @@ namespace Web.Models.EF
                 ,
                 new Category()
                 {
-                    Id = Guid.Parse("F053BA68-398A-4019-87A1-5BC9466E9FE4"), //dán id mới ở sql
+                    Id = Guid.Parse("87c81df9-92af-4de6-9ad4-ba239663b48e"), //dán id mới ở sql
                     Name = "Article", //bảng authorized
                     CreatedBy = Guid.Parse("11336570-9607-4634-8244-207E19971E98"),
                     CreatedOn = DateTime.Now //bảng tg
                 },
                 new Category()
                 {
-                    Id = Guid.Parse("F053BA68-398A-4019-87A1-5BC9466E9FE4"), //dán id mới ở sql
+                    Id = Guid.Parse("43443b53-f81d-4af8-aaa7-71e8f426a67b"), //dán id mới ở sql
                     Name = "Product", //bảng product 
+                    CreatedBy = Guid.Parse("11336570-9607-4634-8244-207E19971E98"),
+                    CreatedOn = DateTime.Now //bảng tg
+                },
+                new Category()
+                {
+                    Id = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54"), //dán id mới ở sql
+                    Name = "Group",
                     CreatedBy = Guid.Parse("11336570-9607-4634-8244-207E19971E98"),
                     CreatedOn = DateTime.Now //bảng tg
                 }
@@ -68,21 +75,21 @@ namespace Web.Models.EF
     },
     new Role()
     {
-        Id = Guid.Parse("76D93C1D-3457-4624-8D6A-8A8D3B780458"),
+        Id = Guid.Parse("1c4ba275-09c1-412c-8e02-9af487331f18"),
         Name = "Cập nhật",
         Code = "edit-group",
         CategoryId = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54")
     },
     new Role()
     {
-        Id = Guid.Parse(" "),
+        Id = Guid.Parse("4b7262bc-92b2-4961-b800-be2d7e38766d"),
         Name = "Lưu",
         Code = "save-group",
         CategoryId = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54")
     },
     new Role()
     {
-        Id = Guid.Parse(" "),
+        Id = Guid.Parse("efd340c4-a8c6-494e-b361-b1f4084ed135"),
         Name = "Xóa",
         Code = "delete-group",
         CategoryId = Guid.Parse("3BCD9C68-1B73-44C9-ABA7-D167B98CFE54")
@@ -112,5 +119,10 @@ namespace Web.Models.EF
         public DbSet<Product> Products { get; set; }
 
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Order> Orders { get; set; }
+
+        public DbSet<Details> Details { get; set; }
     }
 }

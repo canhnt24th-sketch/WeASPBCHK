@@ -34,7 +34,7 @@
 
 <div class="modal fade" id="modal-default">
 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
 
         <div class="modal-content">
 
@@ -122,8 +122,30 @@
 
         $(function () {
 
-            $(".summernote").summernote();
-
+            $(".summernote").summernote({
+                callbacks: {
+    onImageUpload: function (files, editor, welEditable) {
+        sendFile(files[0], editor, welEditable);
+                 }
+            }
+           });
+           //thêm đoạn tin tức 22.47 lab 12
+           function sendFile(file, editor, welEditable) {
+    data = new FormData();
+    data.append("Picture", file);
+    $.ajax({
+        data: data,
+        type: "POST",
+        url: "/Admin/News/UploadPicture",
+        cache: false,
+        processData: false,
+        contentType: false,
+        success: function (url) {
+            var image = $("<img>").attr('src', url);
+            $('.summernote').summernote("insertNode", image[0]);
+        }
+    });
+} //đã thêm
             var items = $("#items").DataTable({
 
                 "dom": "Blfrtip",

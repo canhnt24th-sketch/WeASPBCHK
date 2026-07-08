@@ -25,7 +25,7 @@
             <div class="card-body">
                 <p class="login-box-msg">Đăng nhập để tiếp tục</p>
 
-                <form action="@Url.Action("Login","Member")" method="post">
+                <form action="@Url.Action("Login","Member", new {area="Admin"})" method="post">
                     <div class="input-group mb-3">
                         <input type="Text" class="form-control" name = "LoginName"  value = "ngo.canh"placeholder="Tài khoản">
                         <div class="input-group-append">

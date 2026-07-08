@@ -139,5 +139,24 @@ namespace Web.Areas.Admin.Controllers
                 return Ok(false);
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> UploadPicture(IFormFile Picture)
+        {
+            if (Picture != null)
+            {
+                var path = Path.Combine(this._environment.WebRootPath, "img/news/", Picture.FileName);
+
+                using (FileStream stream = new FileStream(path, FileMode.Create))
+                {
+                    await Picture.CopyToAsync(stream);
+
+                    stream.Close();
+                }
+
+                return Ok("/img/news/" + Picture.FileName);
+            }
+
+            return Ok("");
+        }
     }
 }
