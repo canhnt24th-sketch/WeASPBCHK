@@ -207,7 +207,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item menu-open">
-            <a href="@Url.Action("Index", "Home", new {areas = "Admin"})" class="nav-link active">
+            <a href="@Url.Action("Index", "Home", new {area = "Admin"})" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
                 Trang chủ
@@ -224,19 +224,19 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="@Url.Action("Index", "Category", new {areas = "Admin"})" class="nav-link">
+                <a href="@Url.Action("Index", "Category", new {area = "Admin"})" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Chuyên mục </p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="@Url.Action("Index", "Product", new {areas = "Admin"})" class="nav-link">
+                <a href="@Url.Action("Index", "Product", new {area = "Admin"})" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Sản phẩm</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="@Url.Action("Index", "News", new {areas = "Admin"})" class="nav-link">
+                <a href="@Url.Action("Index", "News", new {area = "Admin"})" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Tin tức </p>
                 </a>
@@ -253,7 +253,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="@Url.Action("Index", "Order", new {areas = "Admin"})" class="nav-link">
+                <a href="@Url.Action("Index", "Order", new {area = "Admin"})" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Đơn hàng</p>
                 </a>
@@ -270,7 +270,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                                    <a href="@Url.Action("IncomeByMonth", "Report", new { areas = "Admin" })" class="nav-link">
+                                    <a href="@Url.Action("IncomeByMonth", "Report", new { area = "Admin" })" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Doanh thu tháng</p>
                 </a>
@@ -287,13 +287,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                                    <a href="@Url.Action("Index", "Group", new { areas = "Admin" })" class="nav-link">
+                                    <a href="@Url.Action("Index", "Group", new { area = "Admin" })" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Phân quyền</p>
                 </a>
               </li>
               <li class="nav-item">
-                                    <a href="@Url.Action("Index", "Member", new { areas = "Admin" })" class="nav-link">
+                                    <a href="@Url.Action("Index", "Member", new { area = "Admin" })" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Thành viên</p>
                 </a>

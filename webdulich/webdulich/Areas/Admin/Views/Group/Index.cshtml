@@ -103,7 +103,7 @@
 
     <script src="/plugins/datatables/jquery.datatables.min.js"></script>
     <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
-    <script src="/plugins/datatables-bs4/js/datatables.bootstrap4.min.js"></script>
+    <script src="/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
     <script src="/plugins/toastr/toastr.min.js"></script> 
     <script src="/plugins/sweetalet2/sweetalert2.all.min.js"></script>
     <script>
@@ -169,17 +169,13 @@
 
         ],
         "buttons": [
-
         {
-
         text: '<i class="fa fa-plus mr-2"></i>Thêm nhóm',
-
         className: 'btn btn-info pb-1',
-
         action: function (e, dt, node, config) {
-        $("#modal-default form#Item")[0].reset();
-        $("#Id").val(" "))
-        $("#modal-default").modal('show');
+            $("#modal-default form#Item")[0].reset();
+            $("#Id").val(" ");
+            $("#modal-default").modal('show');
         }
 
         }
@@ -208,8 +204,7 @@
         toastr.error("Lỗi: Không có quyền truy cập chức năng này.");
         });
 
-        })
-        $(".btnSave").click(function () {
+        })       
         $(".btnSave").click(function () {
         $.ajax({
         data: $("#Item").serialize(),

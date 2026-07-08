@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
+using System.Linq.Dynamic.Core;
 using Web.Models.EF;
 using webdulich.Areas.Admin.Models;
-using System.Linq.Dynamic.Core;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -27,6 +28,37 @@ namespace Web.Areas.Admin.Controllers
             ViewBag.Customer = _dbContext.Customers.Find(order.CustomerId);
 
             return View(order);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetDetailsList(jDatatable model, Guid orderId)
+        {
+            var items = (from i in _dbContext.Details
+                         where i.OrderId == orderId
+                         select i);
+
+            int recordsTotal = 0;
+            recordsTotal = items.Count();
+
+            var data = await items.Select(i => new
+            {
+                i.Id,
+                productName = i.Product.Title,
+                i.Amount,
+                i.Price
+            })
+            .Skip(model.start)
+            .Take(model.length)
+            .ToListAsync();
+
+            var jsonData = new
+            {
+                draw = model.draw,
+                recordsFiltered = recordsTotal,
+                recordsTotal = recordsTotal,
+                data = data
+            };
+
+            return Ok(jsonData);
         }
         [HttpPost]
         public async Task<IActionResult> getList(jDatatable model)

@@ -113,41 +113,25 @@
     <script>
 
         $(function () {
-
         var items = $("#items").DataTable({
         "dom": "Blfrtip",
         "processing": true,
-
         "serverSide": true,
-
         "ajax": {
-
         "url": "/Admin/Member/GetList",
-
         "type": "POST",
-
-        "dataType": "json"
-
+        "dataType": "json",
         "error": function (xhr, error, code) {
         toastr.error("Lỗi: Không có quyền truy cập chức năng này.");
         }
-
         },
-
         "columns": [
-
         {
-
         "data": null,
-
         "render": function (data, type, row, meta) { return meta.row + 1; }
-
         },
-
         {
-
         "render": function (data, type, row, meta) {
-
         return "<img class='user-picture' src='" + row.picture + "' /> " + row.name;
 
         }
@@ -198,7 +182,7 @@
 
         action: function (e, dt, node, config) {
         $("#modal-default form#Item")[0].reset();
-        $("#Id").val(" "));
+        $("#Id").val("");
         $("#modal-default").modal('show');
         }
 

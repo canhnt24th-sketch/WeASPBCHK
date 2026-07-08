@@ -252,40 +252,44 @@
     left: calc(50% - 13px);
 }
 
-
 /*** Products ***/
 .product {
     background: linear-gradient(rgba(136, 180, 78, .1), rgba(136, 180, 78, .1)), url(../img/product-bg.png) left bottom no-repeat;
     background-size: auto;
 }
 
-.product-carousel .owl-nav {
+.product-carousel .owl-nav,
+.IsComming .owl-nav {
     display: flex;
     justify-content: center;
     margin-top: 30px;
 }
 
-.product-carousel .owl-nav .owl-prev,
-.product-carousel .owl-nav .owl-next {
-    margin: 0 10px;
-    width: 55px;
-    height: 55px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #FFFFFF;
-    background: var(--primary);
-    border-radius: 55px;
-    box-shadow: 0 0 45px rgba(0, 0, 0, .15);
-    font-size: 25px;
-    transition: .5s;
-}
+    .product-carousel .owl-nav .owl-prev,
+    .product-carousel .owl-nav .owl-next,
+    .IsComming .owl-nav .owl-prev,
+    .IsComming .owl-nav .owl-next {
+        margin: 0 10px;
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #FFFFFF;
+        background: var(--primary);
+        border-radius: 55px;
+        box-shadow: 0 0 45px rgba(0, 0, 0, .15);
+        font-size: 25px;
+        transition: .5s;
+    }
 
-.product-carousel .owl-nav .owl-prev:hover,
-.product-carousel .owl-nav .owl-next:hover {
-    background: #FFFFFF;
-    color: var(--primary);
-}
+        .product-carousel .owl-nav .owl-prev:hover,
+        .product-carousel .owl-nav .owl-next:hover,
+        .IsComming .owl-nav .owl-prev:hover,
+        .IsComming .owl-nav .owl-next:hover {
+            background: #FFFFFF;
+            color: var(--primary);
+        }
 
 
 /*** About ***/
